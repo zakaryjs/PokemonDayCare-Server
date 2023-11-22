@@ -10,6 +10,14 @@ const PORT = process.env.PORT
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
+const mongoose = require('mongoose')
+var databaseUrl = process.env.DB_URI
+
+const {databaseConnect} = require('./database')
+databaseConnect(databaseUrl).then(() => {
+    console.log('Database is connected successfully.')
+})
+
 app.get('/', (request, response) => {
     response.json({
         message: "Hello world! The server is working :)"
