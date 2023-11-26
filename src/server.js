@@ -18,6 +18,9 @@ databaseConnect(databaseUrl).then(() => {
     console.log('Database is connected successfully.')
 })
 
+const usersController = require("./controllers/UserRoutes");
+app.use("/users", usersController);
+
 app.get('/', (request, response) => {
     response.json({
         message: "Hello world! The server is working :)"
