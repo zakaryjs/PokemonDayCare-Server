@@ -18,8 +18,11 @@ databaseConnect(databaseUrl).then(() => {
     console.log('Database is connected successfully.')
 })
 
-const usersController = require("./controllers/UserRoutes");
-app.use("/users", usersController);
+const usersController = require("./controllers/UserRoutes")
+app.use("/users", usersController)
+
+const pokemonController = require("./controllers/PokemonRoutes")
+app.use("/pokemon", pokemonController)
 
 app.get('/', (request, response) => {
     response.json({
