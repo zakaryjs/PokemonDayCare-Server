@@ -44,14 +44,14 @@ router.post('/', async (request, response) => {
     })
 })
 
-router.put('/appointmentID', async (request, response) => {
+router.put('/appointmentID', jwtInHeader, verifyJwtRole, async (request, response) => {
     let appointmentDetails = {
         appointmentID: request.params.appointmentID,
         newData: request.body.newAppointmentData
     }
 })
 
-router.delete('/:appointmentID'), async (request, response) => {
+router.delete('/:appointmentID'), jwtInHeader, verifyJwtRole, adminOnly, async (request, response) => {
     response.json(
         await deleteAppointment(request.params.appointmentID)
     )

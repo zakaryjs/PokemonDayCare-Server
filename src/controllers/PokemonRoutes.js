@@ -44,14 +44,14 @@ router.post('/', async (request, response) => {
     })
 })
 
-router.put('/pokemonID', async (request, response) => {
+router.put('/pokemonID', jwtInHeader, verifyJwtRole, adminOnly, async (request, response) => {
     let pokemonDetails = {
         pokemonID: request.params.pokemonID,
         newData: request.body.newPokemonData
     }
 })
 
-router.delete('/:pokemonID'), async (request, response) => {
+router.delete('/:pokemonID'), jwtInHeader, verifyJwtRole, adminOnly, async (request, response) => {
     response.json(
         await deletePokemon(request.params.pokemonID)
     )
