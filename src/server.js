@@ -24,6 +24,9 @@ app.use("/users", usersController)
 const pokemonController = require("./controllers/PokemonRoutes")
 app.use("/pokemon", pokemonController)
 
+const appointmentController = require("./controllers/AppointmentRoutes")
+app.use("/appointment", appointmentController)
+
 app.get('/', (request, response) => {
     response.json({
         message: "Hello world! The server is working :)"

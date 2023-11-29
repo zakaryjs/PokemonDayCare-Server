@@ -4,8 +4,8 @@ async function getAllPokemon(){
     return await Pokemon.find({}).exec()
 }
 
-async function getPokemonById(postId){
-    return await Pokemon.findById(postId).exec()
+async function getPokemonById(pokemonId){
+    return await Pokemon.findById(pokemonId).exec()
 }
 
 async function getOneUsersPokemon(userId) {
