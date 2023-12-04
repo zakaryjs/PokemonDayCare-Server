@@ -56,7 +56,7 @@ router.post('/login', async (request, response) => {
         
         response.cookie('jwt', encryptedUserJwt, {  maxAge: 7*24*60*60*1000, httpOnly: true, secure: true, sameSite: 'none' })
         if (targetUser.isAdmin) {
-            response.cookie('isAdmin', true, {  maxAge: 7*24*60*60*1000, httpOnly: true, secure: true, sameSite: 'none', path: 'https://pokemon-daycare.netlify.app/' })
+            response.cookie('isAdmin', true, {  maxAge: 7*24*60*60*1000, httpOnly: true, secure: true, sameSite: 'none', domain: 'https://pokemon-daycare.netlify.app/' })
         }
         response.json(encryptedUserJwt)
         
