@@ -13,7 +13,18 @@ async function getOneUsersPokemon(userId) {
 }
 
 async function createPokemon(pokemonDetails) {
-    return await Pokemon.create(pokemonDetails)
+    let newPokemon = new Pokemon(
+        {
+            species: pokemonDetails.species,
+            nickname: pokemonDetails.nickname,
+            gender: pokemonDetails.gender,
+            height: pokemonDetails.height,
+            weight: pokemonDetails.weight,
+            notes: pokemonDetails.notes,
+            user: pokemonDetails.user
+        }
+    )
+    return await newPokemon.save()
 }
 
 async function updatePokemon(pokemonDetails){

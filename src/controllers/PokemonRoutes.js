@@ -37,18 +37,36 @@ router.get('/:pokemonID', async (request, response) => {
 })
 
 router.post('/', async (request, response) => {
-    let pokemon = await createPokemon(request.body.pokemonDetails) 
+    let pokemonDetails = {
+        species: request.body.species,
+        nickname: request.body.nickname,
+        gender: request.body.gender,
+        height: request.body.height,
+        weight: request.body.weight,
+        notes: request.body.notes,
+        user: request.body.user
+    }
+    let newPokemon = await createPokemon(pokemonDetails)
 
     response.json({
-        pokemon: pokemon
+        pokemon: newPokemon
     })
 })
 
 router.put('/pokemonID', jwtInHeader, verifyJwtRole, adminOnly, async (request, response) => {
     let pokemonDetails = {
         pokemonID: request.params.pokemonID,
-        newData: request.body.newPokemonData
+        updatedData: {
+            species: request.body.species,
+            nickname: request.body.nickname,
+            gender: request.body.gender,
+            height: request.body.height,
+            weight: request.body.weight,
+            notes: request.body.notes,
+        }
     }
+
+    response.json(await updatePokemon(pokemonDetails))
 })
 
 router.delete('/:pokemonID'), jwtInHeader, verifyJwtRole, adminOnly, async (request, response) => {

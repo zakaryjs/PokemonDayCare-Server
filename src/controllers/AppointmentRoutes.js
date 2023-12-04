@@ -37,18 +37,32 @@ router.get('/:appointmentID', async (request, response) => {
 })
 
 router.post('/', async (request, response) => {
-    let appointment = await createAppointment(request.body.appointmentDetails) 
+    let appointmentDetails = {
+        dropOffDate: request.body.dropOffDate,
+        pickUpDate: request.body.pickUpDate,
+        typeOfAppointment: request.body.typeOfAppointment,
+        pokemon: request.body.pokemon,
+        user: request.body.user
+    }
+    let newAppointment = await createAppointment(appointmentDetails)
 
     response.json({
-        appointment: appointment
+        appointment: newAppointment
     })
 })
 
 router.put('/appointmentID', jwtInHeader, verifyJwtRole, async (request, response) => {
     let appointmentDetails = {
         appointmentID: request.params.appointmentID,
-        newData: request.body.newAppointmentData
+        updatedData: {
+            dropOffDate: request.body.dropOffDate,
+            pickUpDate: request.body.pickUpDate,
+            typeOfAppointment: request.body.typeOfAppointment,
+            pokemon: request.body.pokemon,
+        }
     }
+
+    response.json(await updateAppointment(appointmentDetails))
 })
 
 router.delete('/:appointmentID'), jwtInHeader, verifyJwtRole, adminOnly, async (request, response) => {

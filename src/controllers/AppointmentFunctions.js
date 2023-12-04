@@ -13,7 +13,17 @@ async function getOneUsersAppointments(userId) {
 }
 
 async function createAppointment(appointmentDetails) {
-    return await Appointment.create(appointmentDetails)
+    
+    let newAppointment = new Appointment(
+        {
+            dropOffDate: appointmentDetails.dropOffDate,
+            pickUpDate: appointmentDetails.pickUpDate,
+            typeOfAppointment: appointmentDetails.typeOfAppointment,
+            pokemon: appointmentDetails.pokemon,
+            user: appointmentDetails.user
+        }
+    )
+    return await newAppointment.save()
 }
 
 async function updateAppointment(appointmentDetails){
