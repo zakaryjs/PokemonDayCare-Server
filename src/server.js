@@ -11,7 +11,8 @@ const corsOptions = {
 	optionsSuccessStatus: 200,
     credentials: true,
     cookie: {
-        sameSite: 'none'
+        sameSite: 'none',
+        secure: true
     }
 }
 app.use(cors(corsOptions));
