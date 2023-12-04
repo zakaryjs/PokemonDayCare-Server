@@ -7,7 +7,8 @@ const app = express()
 
 const cors = require('cors')
 const corsOptions = {
-    origin: ["http://localhost:3000", "http://localhost:3000/", "https://localhost:3000", "https://localhost:3000/", "https://pokemon-daycare.netlify.app/"],
+    origin: ["http://localhost:3000", "http://localhost:3000/", "https://localhost:3000", "https://localhost:3000/", "https://pokemon-daycare.netlify.app/", 
+    "https://pokemon-daycare.netlify.app"],
 	optionsSuccessStatus: 200,
     credentials: true,
     cookie: {
