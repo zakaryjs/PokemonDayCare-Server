@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const AppointmentSchema = new Mongoose.Schema({
+const AppointmentSchema = new mongoose.Schema({
     dropOffDate: {
         type: Date,
         required: true,

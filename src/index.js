@@ -1,5 +1,7 @@
-var {app, PORT, HOST} = require('./server');
+var {app} = require('./server');
 
-app.listen(PORT, HOST, () => {
+const PORT = process.env.PORT || 3000
+
+app.listen(PORT, async () => {
     console.log(`The Pokemon Daycare server is now running.`)
 })
