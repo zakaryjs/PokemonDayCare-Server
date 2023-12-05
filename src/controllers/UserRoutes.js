@@ -36,7 +36,7 @@ router.post('/register', async (request, response) => {
         })
     } catch (error) {
         response.status(400).json({
-            error: 'Error creating user'
+            error: error
         })
     }
 })
