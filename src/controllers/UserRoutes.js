@@ -17,7 +17,9 @@ router.post('/register', async (request, response) => {
 
     if (request.body.password.length < 8) {
         return response.status(400).json({
-            error: 'Password must be at least 8 characters.'
+            error: {
+                errorMessage: 'Password must be at least 8 characters.'
+            }
         })
     }
 
