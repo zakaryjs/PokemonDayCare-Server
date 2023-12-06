@@ -18,6 +18,9 @@ const corsOptions = {
 }
 app.use(cors(corsOptions));
 
+const cookieParser = require('cookie-parser')
+app.use(cookieParser())
+
 const HOST = process.env.HOST
 const PORT = process.env.PORT
 

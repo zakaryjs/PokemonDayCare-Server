@@ -87,7 +87,11 @@ function errorHandler(error) {
     console.log(error.message)
 }
 
+async function getSpecificUser(userID){
+    return await User.findById(userID)
+}
+
 module.exports = {
     encryptString, decryptString, decryptObject, hashString, validateHashedData, 
-    generateJWT, generateUserJWT, verifyUserJWT, createUser, updateUser, deleteUser, errorHandler
+    generateJWT, generateUserJWT, verifyUserJWT, createUser, updateUser, deleteUser, errorHandler, getSpecificUser
 }
