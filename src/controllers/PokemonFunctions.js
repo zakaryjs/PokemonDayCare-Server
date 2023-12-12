@@ -9,7 +9,7 @@ async function getPokemonById(pokemonId){
 }
 
 async function getOneUsersPokemon(userId) {
-    return await Pokemon.find({user: userId}).exec()
+    return await Pokemon.find({user: userId})
 }
 
 async function createPokemon(pokemonDetails) {
