@@ -21,20 +21,20 @@ router.get('/all', async (request, response) => {
 })
 
 router.get('/:userID', async (request, response) => {
-    let usersPokemon = await getOneUsersPokemon(request.params.pokemonID)
+    const result = await Pokemon.find({user: request.params.userID})
 
     response.json({
-        pokemon: usersPokemon
+        pokemon: result
     })
 })
 
-router.get('/:pokemonID', async (request, response) => {
-    let pokemon = await getPokemonById(request.params.pokemonID)
+// router.get('/:pokemonID', async (request, response) => {
+//     let pokemon = await Pokemon.find({user: userId})
 
-    response.json({
-        pokemon: pokemon
-    })
-})
+//     response.json({
+//         pokemon: pokemon
+//     })
+// })
 
 router.post('/', async (request, response) => {
     let pokemonDetails = {
