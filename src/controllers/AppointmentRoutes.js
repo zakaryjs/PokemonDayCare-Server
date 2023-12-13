@@ -20,21 +20,21 @@ router.get('/all', async (request, response) => {
     })
 })
 
-router.get('/:appointmentID', async (request, response) => {
-    let usersAppointments = await getOneUsersAppointments(request.params.appointmentID)
+router.get('/:userID', async (request, response) => {
+    const usersAppointments = await Appointment.find({user: request.params.userID}).populate("pokemon").populate("user")
 
     response.json({
         appointments: usersAppointments
     })
 })
 
-router.get('/:appointmentID', async (request, response) => {
-    let appointment = await getAppointmentById(request.params.appointmentID)
+// router.get('/:appointmentID', async (request, response) => {
+//     let appointment = await getAppointmentById(request.params.appointmentID)
 
-    response.json({
-        appointment: appointment
-    })
-})
+//     response.json({
+//         appointment: appointment
+//     })
+// })
 
 router.post('/', async (request, response) => {
     let appointmentDetails = {

@@ -1,7 +1,7 @@
 const { Appointment } = require('../models/AppointmentModel')
 
 async function getAllAppointments(){
-    return await Appointment.find({}).exec()
+    return await Appointment.find({}).populate("pokemon").populate("user").exec()
 }
 
 async function getAppointmentById(appointmentId){
