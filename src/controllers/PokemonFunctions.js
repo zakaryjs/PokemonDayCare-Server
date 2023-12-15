@@ -28,7 +28,7 @@ async function createPokemon(pokemonDetails) {
 }
 
 async function updatePokemon(pokemonDetails){
-    return await Pokemon.findByIdAndUpdate(pokemonDetails.user, pokemonDetails.updatedData, {returnDocument: 'after'}).exec();
+    return await Pokemon.findByIdAndUpdate(pokemonDetails.pokemonID, pokemonDetails.updatedData, {returnDocument: 'after'}).exec();
 }
 
 async function deletePokemon(pokemonID){

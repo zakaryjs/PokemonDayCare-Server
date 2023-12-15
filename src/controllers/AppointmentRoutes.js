@@ -65,10 +65,10 @@ router.put('/appointmentID', jwtInHeader, verifyJwtRole, async (request, respons
     response.json(await updateAppointment(appointmentDetails))
 })
 
-router.delete('/:appointmentID'), jwtInHeader, verifyJwtRole, adminOnly, async (request, response) => {
+router.delete('/:appointmentID', async (request, response) => {
     response.json(
         await deleteAppointment(request.params.appointmentID)
     )
-}
+})
 
 module.exports = router
