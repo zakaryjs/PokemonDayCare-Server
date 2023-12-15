@@ -28,13 +28,13 @@ router.get('/:userID', async (request, response) => {
     })
 })
 
-// router.get('/:pokemonID', async (request, response) => {
-//     let pokemon = await Pokemon.find({user: userId})
+router.get('/find/:pokemonID', async (request, response) => {
+    let pokemon = await Pokemon.find({_id: request.params.pokemonID})
 
-//     response.json({
-//         pokemon: pokemon
-//     })
-// })
+    response.json({
+        pokemon: pokemon
+    })
+})
 
 router.post('/', async (request, response) => {
     let pokemonDetails = {
@@ -53,7 +53,7 @@ router.post('/', async (request, response) => {
     })
 })
 
-router.put('/pokemonID', jwtInHeader, verifyJwtRole, adminOnly, async (request, response) => {
+router.put('/:pokemonID', async (request, response) => {
     let pokemonDetails = {
         pokemonID: request.params.pokemonID,
         updatedData: {
@@ -69,10 +69,10 @@ router.put('/pokemonID', jwtInHeader, verifyJwtRole, adminOnly, async (request, 
     response.json(await updatePokemon(pokemonDetails))
 })
 
-router.delete('/:pokemonID'), jwtInHeader, verifyJwtRole, adminOnly, async (request, response) => {
+router.delete('/:pokemonID', async (request, response) => {
     response.json(
         await deletePokemon(request.params.pokemonID)
     )
-}
+})
 
 module.exports = router
