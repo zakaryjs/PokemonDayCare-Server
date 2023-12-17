@@ -10,7 +10,7 @@ const {
 } = require('./UserFunctions')
 
 const {
-    jwtInHeader, verifyJwtRole, adminOnly
+    jwtInHeader, adminOnly
 } = require('../middleware/UserMiddleware')
 
 const jwt = require('jsonwebtoken')
@@ -83,7 +83,7 @@ router.post('/logout', async (request, response) => {
     response.json({message: 'logged out'})
 })
 
-router.post('/token-refresh', async(request, response) => {
+router.post('/token-refresh', jwtInHeader, async(request, response) => {
     try {
         let oldToken = request.cookies.jwt;
         let refreshResult = await verifyUserJWT(oldToken).catch(error => {return {error: error.message}})
@@ -141,7 +141,7 @@ router.post('/token-refresh', async(request, response) => {
 //     response.json(await deleteUser(request.params.userID))
 // })
 
-router.get('/:userID', async (request, response) => {
+router.get('/:userID', jwtInHeader, async (request, response) => {
     response.json(await getSpecificUser(request.params.userID));
 })
 

@@ -9,10 +9,10 @@ const {
 } = require('./AppointmentFunctions')
 
 const {
-    jwtInHeader, verifyJwtRole, adminOnly
+    jwtInHeader, adminOnly
 } = require('../middleware/UserMiddleware')
 
-router.get('/all', async (request, response) => {
+router.get('/all', jwtInHeader, adminOnly, async (request, response) => {
     let allAppointments = await getAllAppointments()
 
     response.json({
@@ -20,12 +20,19 @@ router.get('/all', async (request, response) => {
     })
 })
 
-router.get('/:userID', async (request, response) => {
-    const usersAppointments = await Appointment.find({user: request.params.userID}).populate("pokemon").populate("user")
+router.get('/:userID', jwtInHeader, async (request, response) => {
+    try {
+        const usersAppointments = await Appointment.find({user: request.params.userID}).populate("pokemon").populate("user")
 
-    response.json({
-        appointments: usersAppointments
-    })
+        response.json({
+            appointments: usersAppointments
+        })
+    } catch (error) {
+        response.status(400).json({
+            error: error
+        })
+    }
+    
 })
 
 // router.get('/:appointmentID', async (request, response) => {
@@ -36,39 +43,52 @@ router.get('/:userID', async (request, response) => {
 //     })
 // })
 
-router.post('/', async (request, response) => {
-    let appointmentDetails = {
-        dropOffDate: request.body.dropOffDate,
-        pickUpDate: request.body.pickUpDate,
-        typeOfAppointment: request.body.typeOfAppointment,
-        pokemon: request.body.pokemon,
-        user: request.body.user
-    }
-    let newAppointment = await createAppointment(appointmentDetails)
-
-    response.json({
-        appointment: newAppointment
-    })
-})
-
-router.put('/appointmentID', jwtInHeader, verifyJwtRole, async (request, response) => {
-    let appointmentDetails = {
-        appointmentID: request.params.appointmentID,
-        updatedData: {
+router.post('/', jwtInHeader, async (request, response) => {
+    try {
+        let appointmentDetails = {
             dropOffDate: request.body.dropOffDate,
             pickUpDate: request.body.pickUpDate,
             typeOfAppointment: request.body.typeOfAppointment,
             pokemon: request.body.pokemon,
+            user: request.body.user
         }
-    }
-
-    response.json(await updateAppointment(appointmentDetails))
+        let newAppointment = await createAppointment(appointmentDetails)
+    
+        response.json({
+            appointment: newAppointment
+        })
+    } catch (error) {
+        response.status(400).json({
+            error: error
+        })
+    }    
 })
 
-router.delete('/:appointmentID', async (request, response) => {
-    response.json(
-        await deleteAppointment(request.params.appointmentID)
-    )
+
+// router.put('/appointmentID', jwtInHeader, verifyJwtRole, async (request, response) => {
+//     let appointmentDetails = {
+//         appointmentID: request.params.appointmentID,
+//         updatedData: {
+//             dropOffDate: request.body.dropOffDate,
+//             pickUpDate: request.body.pickUpDate,
+//             typeOfAppointment: request.body.typeOfAppointment,
+//             pokemon: request.body.pokemon,
+//         }
+//     }
+
+//     response.json(await updateAppointment(appointmentDetails))
+// })
+
+router.delete('/:appointmentID', jwtInHeader, async (request, response) => {
+    try {
+        response.json(
+            await deleteAppointment(request.params.appointmentID)
+        )
+    } catch (error) {
+        response.status(400).json({
+            error: error
+        })
+    }
 })
 
 module.exports = router
