@@ -9,70 +9,106 @@ const {
 } = require('./PokemonFunctions')
 
 const {
-    jwtInHeader, verifyJwtRole, adminOnly
+    jwtInHeader, adminOnly
 } = require('../middleware/UserMiddleware')
 
-router.get('/all', async (request, response) => {
-    let allPokemon = await getAllPokemon()
+router.get('/all', jwtInHeader, adminOnly, async (request, response) => {
+    try {
+        let allPokemon = await getAllPokemon()
 
     response.json({
         pokemon: allPokemon
     })
+    } catch (error) {
+        response.status(400).json({
+            error: error
+        })
+    }
 })
 
 router.get('/:userID', jwtInHeader, async (request, response) => {
-    const result = await Pokemon.find({user: request.params.userID})
+    try {
+        const result = await Pokemon.find({user: request.params.userID})
 
-    response.json({
-        pokemon: result
-    })
+        response.json({
+            pokemon: result
+        })
+    } catch (error) {
+        response.status(400).json({
+            error: error
+        })
+    }    
 })
 
-router.get('/find/:pokemonID', async (request, response) => {
-    let pokemon = await Pokemon.find({_id: request.params.pokemonID})
+router.get('/find/:pokemonID', jwtInHeader, async (request, response) => {
+    try {
+        let pokemon = await Pokemon.find({_id: request.params.pokemonID})
 
-    response.json({
-        pokemon: pokemon
-    })
+        response.json({
+            pokemon: pokemon
+        })
+    } catch (error) {
+        response.status(400).json({
+            error: error
+        })
+    }   
 })
 
-router.post('/', async (request, response) => {
-    let pokemonDetails = {
-        species: request.body.species,
-        nickname: request.body.nickname,
-        gender: request.body.gender,
-        height: request.body.height,
-        weight: request.body.weight,
-        notes: request.body.notes,
-        user: request.body.user
-    }
-    let newPokemon = await createPokemon(pokemonDetails)
-
-    response.json({
-        pokemon: newPokemon
-    })
-})
-
-router.put('/:pokemonID', async (request, response) => {
-    let pokemonDetails = {
-        pokemonID: request.params.pokemonID,
-        updatedData: {
+router.post('/', jwtInHeader, async (request, response) => {
+    try {
+        let pokemonDetails = {
             species: request.body.species,
             nickname: request.body.nickname,
             gender: request.body.gender,
             height: request.body.height,
             weight: request.body.weight,
             notes: request.body.notes,
+            user: request.body.user
         }
-    }
-
-    response.json(await updatePokemon(pokemonDetails))
+        let newPokemon = await createPokemon(pokemonDetails)
+    
+        response.json({
+            pokemon: newPokemon
+        })
+    } catch (error) {
+        response.status(400).json({
+            error: error
+        })
+    }    
 })
 
-router.delete('/:pokemonID', async (request, response) => {
-    response.json(
-        await deletePokemon(request.params.pokemonID)
-    )
+router.put('/:pokemonID', jwtInHeader, async (request, response) => {
+    try {
+        let pokemonDetails = {
+            pokemonID: request.params.pokemonID,
+            updatedData: {
+                species: request.body.species,
+                nickname: request.body.nickname,
+                gender: request.body.gender,
+                height: request.body.height,
+                weight: request.body.weight,
+                notes: request.body.notes,
+            }
+        }
+    
+        response.json(await updatePokemon(pokemonDetails))
+    } catch (error) {
+        response.status(400).json({
+            error: error
+        })
+    }
+})
+
+router.delete('/:pokemonID', jwtInHeader, async (request, response) => {
+    try {
+        response.json(
+            await deletePokemon(request.params.pokemonID)
+        )
+    } catch (error) {
+        response.status(400).json({
+            error: error
+        })
+    }    
 })
 
 module.exports = router
