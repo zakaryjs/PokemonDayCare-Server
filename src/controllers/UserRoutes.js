@@ -83,7 +83,7 @@ router.post('/logout', async (request, response) => {
     response.json({message: 'logged out'})
 })
 
-router.post('/token-refresh', jwtInHeader, async(request, response) => {
+router.post('/token-refresh', async(request, response) => {
     try {
         let oldToken = request.cookies.jwt;
         let refreshResult = await verifyUserJWT(oldToken).catch(error => {return {error: error.message}})
