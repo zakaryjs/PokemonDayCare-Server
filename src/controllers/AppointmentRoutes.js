@@ -64,6 +64,7 @@ router.post('/', jwtInHeader, async (request, response) => {
     }    
 })
 
+
 // router.put('/appointmentID', jwtInHeader, verifyJwtRole, async (request, response) => {
 //     let appointmentDetails = {
 //         appointmentID: request.params.appointmentID,
@@ -87,7 +88,7 @@ router.delete('/:appointmentID', jwtInHeader, async (request, response) => {
         response.status(400).json({
             error: error
         })
-    }    
+    }
 })
 
 module.exports = router
