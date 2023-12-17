@@ -20,7 +20,7 @@ router.get('/all', async (request, response) => {
     })
 })
 
-router.get('/:userID', async (request, response) => {
+router.get('/:userID', jwtInHeader, async (request, response) => {
     const result = await Pokemon.find({user: request.params.userID})
 
     response.json({
