@@ -3,12 +3,16 @@ const { verifyUserJWT, decryptString } = require('../controllers/UserFunctions')
 
 
 const jwtInHeader = async (request, response, next) => {
-    let headerJwt = request.headers.jwt
-    let newJwt = await verifyUserJWT(headerJwt)
-
-    request.headers.jwt = newJwt
-
-    next()
+    try {
+        let headerJwt = request.cookies.jwt
+        console.log(headerJwt)
+        let newJwt = await verifyUserJWT(headerJwt)
+    
+        request.cookies.jwt = newJwt
+    
+        next()
+    } catch (err) {console.log(err)}
+    
 }
 
 const verifyJwtRole = async (request, response, next) => {

@@ -116,30 +116,30 @@ router.post('/token-refresh', async(request, response) => {
     
 })
 
-router.put('/:userID', jwtInHeader, verifyJwtRole, adminOnly, async (request, response) => {
+// router.put('/:userID', jwtInHeader, verifyJwtRole, adminOnly, async (request, response) => {
 
-    if (request.body.password.length < 8) {
-        return response.status(400).json({
-            error: 'Password must be at least 8 characters.'
-        })
-    }
+//     if (request.body.password.length < 8) {
+//         return response.status(400).json({
+//             error: 'Password must be at least 8 characters.'
+//         })
+//     }
 
-    let userDetails = {
-        userID: request.params.userID,
-        updatedData: {
-            firstName: request.body.firstName,
-            lastName: request.body.lastName,
-            email: request.body.email,
-            password: await hashString(request.body.password)
-        }
-    }
+//     let userDetails = {
+//         userID: request.params.userID,
+//         updatedData: {
+//             firstName: request.body.firstName,
+//             lastName: request.body.lastName,
+//             email: request.body.email,
+//             password: await hashString(request.body.password)
+//         }
+//     }
 
-    response.json(await updateUser(userDetails))
-})
+//     response.json(await updateUser(userDetails))
+// })
 
-router.delete('/:userID', jwtInHeader, verifyJwtRole, adminOnly, async (request, response) => {
-    response.json(await deleteUser(request.params.userID))
-})
+// router.delete('/:userID', jwtInHeader, verifyJwtRole, adminOnly, async (request, response) => {
+//     response.json(await deleteUser(request.params.userID))
+// })
 
 router.get('/:userID', async (request, response) => {
     response.json(await getSpecificUser(request.params.userID));
