@@ -83,6 +83,10 @@ async function deleteUser(userID){
     return await User.findByIdAndDelete(userID).exec()
 }
 
+async function deleteUserByEmail(email){
+    return await User.deleteOne({email})
+}
+
 function errorHandler(error) {
     console.log(error.message)
 }
@@ -93,5 +97,5 @@ async function getSpecificUser(userID){
 
 module.exports = {
     encryptString, decryptString, decryptObject, hashString, validateHashedData, 
-    generateJWT, generateUserJWT, verifyUserJWT, createUser, updateUser, deleteUser, errorHandler, getSpecificUser
+    generateJWT, generateUserJWT, verifyUserJWT, createUser, updateUser, deleteUser, errorHandler, getSpecificUser, deleteUserByEmail
 }
