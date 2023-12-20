@@ -60,3 +60,9 @@ test('User cannot login with invalid details', async () => {
     expect(response.body.message).toBe("Invalid user details provided.")
 })
 
+test('User can logout', async () => {
+    const response = await request(app).post('/users/logout').send({})
+
+    expect(response.status).toBe(200)
+    expect(response.body.message).toBe("logged out")
+})
