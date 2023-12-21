@@ -35,6 +35,10 @@ async function deletePokemon(pokemonID){
     return await Pokemon.findByIdAndDelete(pokemonID).exec();
 }
 
+async function deletePokemonByNickname(nickname){
+    return await Pokemon.deleteOne({nickname})
+}
+
 module.exports = {
-    getAllPokemon, getPokemonById, getOneUsersPokemon, createPokemon, updatePokemon, deletePokemon
+    getAllPokemon, getPokemonById, getOneUsersPokemon, createPokemon, updatePokemon, deletePokemon, deletePokemonByNickname
 }
