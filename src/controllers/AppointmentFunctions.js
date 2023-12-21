@@ -34,6 +34,10 @@ async function deleteAppointment(appointmentID){
     return await Appointment.findByIdAndDelete(appointmentID).exec();
 }
 
+async function deleteAppointmentByType(typeOfAppointment){
+    return await Appointment.deleteOne({typeOfAppointment})
+}
+
 module.exports = {
-    getAllAppointments, getAppointmentById, getOneUsersAppointments, createAppointment, updateAppointment, deleteAppointment
+    getAllAppointments, getAppointmentById, getOneUsersAppointments, createAppointment, updateAppointment, deleteAppointment, deleteAppointmentByType
 }
