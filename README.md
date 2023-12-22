@@ -12,6 +12,8 @@ Logo credit to my good friend, [Lochy.](https://www.linkedin.com/in/lochlyn-thom
 
  - "/" 
 
+ Response:
+
  ```
  {
     message: "Hello world! The server is working :)"
@@ -19,6 +21,8 @@ Logo credit to my good friend, [Lochy.](https://www.linkedin.com/in/lochlyn-thom
  ```
 
  - "/invalid-route"
+
+ Response:
 
  ```
  {
@@ -29,47 +33,92 @@ Logo credit to my good friend, [Lochy.](https://www.linkedin.com/in/lochlyn-thom
  #### User Controller
 
  - "/register"
+ POST
 
- error if invalid details (password length less than 8, missing details)
+ Request:
 
  ```
  {
+    firstName: String,
+    lastName: String,
+    password: String,
+    email: String,
+    isAdmin: String
+ }
+ ```
+
+ Error:
+
+ ```
+ { 400
+    error: error
+ }
+ ```
+
+ Response:
+
+ ```
+ { 201
     user: newUser
  }
  ```
 
  - "/login"
+ POST
 
- error if invalid details
+ Request:
 
  ```
  {
+    email: String,
+    password: String
+ }
+ ```
+
+ Error:
+
+ ```
+ { 400
+    message: "Invalid user details provided."
+ }
+ ```
+
+Response:
+
+ ```
+ { 200
     encryptedJWT
  }
  ```
 
  - "/logout"
+ POST
+
+ Response:
 
  ```
- {
+ { 200
     message: "logged out"
  }
  ```
 
  - "/token-refresh"
+ POST
 
- error:
+ Error:
 
  ```
- {
+ { 400
     error: "no user found"
  }
  ```
 
+ Response:
+
  isAdmin = true:
 
  ```
- {
+ { 200
     jwt: refreshResult,
     isAdmin: true,
     user: parsedData
@@ -79,16 +128,19 @@ Logo credit to my good friend, [Lochy.](https://www.linkedin.com/in/lochlyn-thom
  isAdmin = false:
 
  ```
- {
+ { 200
     jwt: refreshResult,
     user: parsedData
  }
  ```
 
  - "/:userID"
+ GET
+
+ Response:
 
  ```
- {
+ { 200
     user: user
  }
  ```
@@ -97,95 +149,140 @@ Logo credit to my good friend, [Lochy.](https://www.linkedin.com/in/lochlyn-thom
  #### Pokemon Controller
 
  - "/all"
+ GET
 
- error:
+ Error:
 
  ```
- {
+ { 400
     error: error
  }
  ```
 
+ Response:
+
  ```
- {
+ { 200
     pokemon: allPokemon
  }
  ```
 
- - "/:userID" 
+ - "/:userID"
+ GET
+
+ Error:
 
  ```
- {
+ { 400
     error: error
  }
  ```
 
+ Response: 
+
  ```
- {
+ { 200
     pokemon: allPokemon
  }
  ```
 
  - "/find/:pokemonID"
+ GET
 
- error:
+ Error:
 
  ```
- {
+ { 400
     error: error
  }
  ```
 
+ Response:
+
  ```
- {
+ { 200
     pokemon: pokemon
  }
  ```
 
  - "/"
+ POST
 
- error:
+ Request:
 
  ```
  {
+    species: String,
+    nickname: String,
+    gender: String,
+    height: Integer,
+    weight: Integer,
+    notes: String,
+ }
+ ```
+
+ Error:
+
+ ```
+ { 400
     error: error
  }
  ```
 
+ Response:
+
  ```
- {
+ { 200
     pokemon: NewPokemon
  }
  ```
 
  - "/:pokemonID"
+ PUT
 
- error:
+ Request:
 
  ```
  {
+    nickname: String,
+    gender: String,
+    height: Integer,
+    weight: Integer,
+    notes: String,
+ }
+ ```
+
+ Error:
+
+ ```
+ { 400
     error: error
  }
  ```
 
+ Response:
+
  ```
- {
+ { 200
     pokemon: updatedPokemon
  }
  ```
 
  - "/:pokemonID"
+ DELETE
 
- error:
+ Error:
 
  ```
- {
+ { 400
     error: error
  }
  ```
 
+ Response:
+
  ```
- {
+ { 200
     pokemon: deletedPokemon
  }
  ```
@@ -193,79 +290,106 @@ Logo credit to my good friend, [Lochy.](https://www.linkedin.com/in/lochlyn-thom
  #### Appointment Controller
 
  - "/all"
+ GET
 
- error:
+ Error:
 
  ```
- {
+ { 400
     error: error
  }
  ```
 
+ Response:
+
  ```
- {
+ { 200
     appointment: allAppointments
  }
  ```
 
  - "/:userID"
+ GET
+
+ Error:
 
  ```
- {
+ { 400
     error: error
  }
  ```
 
+ Response:
+
  ```
- {
+ { 200
     appointments: allAppointments
  }
  ```
 
-- "/find/:appointmentID"
+ - "/find/:appointmentID"
+ GET
 
- error:
+ Error:
 
  ```
- {
+ { 400
     error: error
  }
  ```
 
+ Response:
+
  ```
- {
+ { 200
     appointment: appointment
  }
  ```
 
  - "/"
+ POST
 
- error:
+ Request:
 
  ```
  {
+    dropOffDate: String,
+    pickUpDate: String,
+    typeOfAppointment: String,
+    pokemon: String,
+    user: String
+ }
+ ```
+
+ Error:
+
+ ```
+ { 400
     error: error
  }
  ```
 
  ```
- {
+ { 200
     appointment: NewAppointment
  }
  ```
 
  - "/:appointmentID"
+ DELETE
 
- error:
+ Error:
 
  ```
- {
+ { 400
     error: error
  }
  ```
 
+ Response:
+
  ```
- {
+ { 200
     appointment: deletedAppointment
  }
  ```
