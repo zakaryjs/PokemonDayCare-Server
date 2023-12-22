@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 
+//@desc function that connects to the database using the provided URI
 async function databaseConnect() {
     try {
         await mongoose.connect(process.env.DB_URI);
@@ -9,6 +10,7 @@ async function databaseConnect() {
     }
 }
 
+//@desc function that disconnects from the database
 async function databaseDisconnect() {
     try {
         await mongoose.connection.close()
