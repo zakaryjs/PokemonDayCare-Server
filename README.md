@@ -15,7 +15,7 @@ Logo credit to my good friend, [Lochy.](https://www.linkedin.com/in/lochlyn-thom
  Response:
 
  ```
- {
+ { 200
     message: "Hello world! The server is working :)"
  }
  ```
@@ -25,7 +25,7 @@ Logo credit to my good friend, [Lochy.](https://www.linkedin.com/in/lochlyn-thom
  Response:
 
  ```
- {
+ { 200
     message: "There are no routes with that path."
  }
  ```
