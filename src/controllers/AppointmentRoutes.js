@@ -1,3 +1,5 @@
+// required imports
+
 const express = require('express')
 
 const router = express.Router()
@@ -12,6 +14,9 @@ const {
     jwtInHeader, adminOnly
 } = require('../middleware/UserMiddleware')
 
+//@desc gets all appointments from database
+//@route /appointment/all
+//@access protected
 router.get('/all', jwtInHeader, adminOnly, async (request, response) => {
     let allAppointments = await getAllAppointments()
 
@@ -20,6 +25,9 @@ router.get('/all', jwtInHeader, adminOnly, async (request, response) => {
     })
 })
 
+//@desc gets a single users appointments by user id
+//@route /appointment/:userID
+//@access protected
 router.get('/:userID', jwtInHeader, async (request, response) => {
     try {
         const usersAppointments = await Appointment.find({user: request.params.userID}).populate("pokemon").populate("user")
@@ -32,9 +40,10 @@ router.get('/:userID', jwtInHeader, async (request, response) => {
             error: error
         })
     }
-    
 })
 
+
+//@desc NOT USED
 // router.get('/:appointmentID', async (request, response) => {
 //     let appointment = await getAppointmentById(request.params.appointmentID)
 
@@ -43,6 +52,9 @@ router.get('/:userID', jwtInHeader, async (request, response) => {
 //     })
 // })
 
+//@desc creates an appointment to be stored in the database
+//@route /appointment/
+//@access protected
 router.post('/', jwtInHeader, async (request, response) => {
     try {
         let appointmentDetails = {
@@ -64,7 +76,7 @@ router.post('/', jwtInHeader, async (request, response) => {
     }    
 })
 
-
+//@desc NOT USED
 // router.put('/appointmentID', jwtInHeader, verifyJwtRole, async (request, response) => {
 //     let appointmentDetails = {
 //         appointmentID: request.params.appointmentID,
@@ -79,6 +91,9 @@ router.post('/', jwtInHeader, async (request, response) => {
 //     response.json(await updateAppointment(appointmentDetails))
 // })
 
+//@desc deletes appointment from database
+//@route /appointment/:appointmentID
+//@access protected
 router.delete('/:appointmentID', jwtInHeader, async (request, response) => {
     try {
         response.json(
