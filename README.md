@@ -92,3 +92,180 @@ Logo credit to my good friend, [Lochy.](https://www.linkedin.com/in/lochlyn-thom
     user: user
  }
  ```
+
+
+ #### Pokemon Controller
+
+ - "/all"
+
+ error:
+
+ ```
+ {
+    error: error
+ }
+ ```
+
+ ```
+ {
+    pokemon: allPokemon
+ }
+ ```
+
+ - "/:userID" 
+
+ ```
+ {
+    error: error
+ }
+ ```
+
+ ```
+ {
+    pokemon: allPokemon
+ }
+ ```
+
+ - "/find/:pokemonID"
+
+ error:
+
+ ```
+ {
+    error: error
+ }
+ ```
+
+ ```
+ {
+    pokemon: pokemon
+ }
+ ```
+
+ - "/"
+
+ error:
+
+ ```
+ {
+    error: error
+ }
+ ```
+
+ ```
+ {
+    pokemon: NewPokemon
+ }
+ ```
+
+ - "/:pokemonID"
+
+ error:
+
+ ```
+ {
+    error: error
+ }
+ ```
+
+ ```
+ {
+    pokemon: updatedPokemon
+ }
+ ```
+
+ - "/:pokemonID"
+
+ error:
+
+ ```
+ {
+    error: error
+ }
+ ```
+
+ ```
+ {
+    pokemon: deletedPokemon
+ }
+ ```
+
+ #### Appointment Controller
+
+ - "/all"
+
+ error:
+
+ ```
+ {
+    error: error
+ }
+ ```
+
+ ```
+ {
+    appointment: allAppointments
+ }
+ ```
+
+ - "/:userID"
+
+ ```
+ {
+    error: error
+ }
+ ```
+
+ ```
+ {
+    appointments: allAppointments
+ }
+ ```
+
+- "/find/:appointmentID"
+
+ error:
+
+ ```
+ {
+    error: error
+ }
+ ```
+
+ ```
+ {
+    appointment: appointment
+ }
+ ```
+
+ - "/"
+
+ error:
+
+ ```
+ {
+    error: error
+ }
+ ```
+
+ ```
+ {
+    appointment: NewAppointment
+ }
+ ```
+
+ - "/:appointmentID"
+
+ error:
+
+ ```
+ {
+    error: error
+ }
+ ```
+
+ ```
+ {
+    appointment: deletedAppointment
+ }
+ ```
