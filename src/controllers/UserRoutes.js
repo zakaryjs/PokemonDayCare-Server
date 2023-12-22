@@ -15,6 +15,8 @@ const {
 
 const jwt = require('jsonwebtoken')
 
+//@desc creates a user to be stored in the database
+//@route /users/register
 router.post('/register', async (request, response) => {
 
     if (request.body.password.length < 8) {
@@ -45,6 +47,8 @@ router.post('/register', async (request, response) => {
     }
 })
 
+//@desc compares details sent to server with those in database. If valid user is logged in
+//@route /users/login
 router.post('/login', async (request, response) => {
     try {
         let targetUser = await User.findOne({email: request.body.email}).exec()
@@ -76,6 +80,8 @@ router.post('/login', async (request, response) => {
     
 })
 
+//@desc creates cookies which expire instantly in order to logout the user
+//@route /users/logout
 router.post('/logout', async (request, response) => {
     response.cookie('jwt', 'jwtLogOut', {  maxAge: 1, httpOnly: true, secure: true, sameSite: 'none' })
     response.cookie('isAdmin', false, {  maxAge: 1, httpOnly: true, secure: true, sameSite: 'none' })
@@ -83,6 +89,8 @@ router.post('/logout', async (request, response) => {
     response.json({message: 'logged out'})
 })
 
+//@desc verifies and refreshes the user jwt as well as admin status
+//@route /users/token-refresh 
 router.post('/token-refresh', async(request, response) => {
     try {
         let oldToken = request.cookies.jwt;
@@ -116,6 +124,7 @@ router.post('/token-refresh', async(request, response) => {
     
 })
 
+//@desc NOT USED
 // router.put('/:userID', jwtInHeader, verifyJwtRole, adminOnly, async (request, response) => {
 
 //     if (request.body.password.length < 8) {
@@ -141,6 +150,8 @@ router.post('/token-refresh', async(request, response) => {
 //     response.json(await deleteUser(request.params.userID))
 // })
 
+//@desc gets user details from ID
+//@route /users/:userID
 router.get('/:userID', jwtInHeader, async (request, response) => {
     response.json(await getSpecificUser(request.params.userID));
 })

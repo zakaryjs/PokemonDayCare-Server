@@ -41,13 +41,13 @@ async function updateAppointment(appointmentDetails){
     return await Appointment.findByIdAndUpdate(appointmentDetails.user, appointmentDetails.updatedData, {returnDocument: 'after'}).exec();
 }
 
-//@desc deletes appointment from database
+//@desc deletes appointment from database by ID
 //@access protected
 async function deleteAppointment(appointmentID){
     return await Appointment.findByIdAndDelete(appointmentID).exec();
 }
 
-//@desc deletes appointment from database
+//@desc deletes appointment from database by type of appointment
 //@access protected
 async function deleteAppointmentByType(typeOfAppointment){
     return await Appointment.deleteOne({typeOfAppointment})
