@@ -1,3 +1,5 @@
+// required imports
+
 const express = require('express')
 
 const router = express.Router()
@@ -12,6 +14,9 @@ const {
     jwtInHeader, adminOnly
 } = require('../middleware/UserMiddleware')
 
+//@desc gets all pokemon from database
+//@route /pokemon/all
+//@access protected
 router.get('/all', jwtInHeader, adminOnly, async (request, response) => {
     try {
         let allPokemon = await getAllPokemon()
@@ -26,6 +31,9 @@ router.get('/all', jwtInHeader, adminOnly, async (request, response) => {
     }
 })
 
+//@desc gets a single users pokemon by user id
+//@route /pokemon/:userID
+//@access protected
 router.get('/:userID', jwtInHeader, async (request, response) => {
     try {
         const result = await Pokemon.find({user: request.params.userID})
@@ -40,6 +48,9 @@ router.get('/:userID', jwtInHeader, async (request, response) => {
     }    
 })
 
+//@desc gets a single pokemon by pokemon id
+//@route /pokemon/find/:pokemonID
+//@access protected
 router.get('/find/:pokemonID', jwtInHeader, async (request, response) => {
     try {
         let pokemon = await Pokemon.find({_id: request.params.pokemonID})
@@ -54,6 +65,9 @@ router.get('/find/:pokemonID', jwtInHeader, async (request, response) => {
     }   
 })
 
+//@desc creates an pokemon to be stored in the database
+//@route /pokemon/
+//@access protected
 router.post('/', jwtInHeader, async (request, response) => {
     try {
         let pokemonDetails = {
@@ -77,6 +91,9 @@ router.post('/', jwtInHeader, async (request, response) => {
     }    
 })
 
+//@desc updates a pokemon to reflect changes as requested by the user
+//@route /pokemon/:pokemonID
+//@access protected
 router.put('/:pokemonID', jwtInHeader, async (request, response) => {
     try {
         let pokemonDetails = {
@@ -99,6 +116,9 @@ router.put('/:pokemonID', jwtInHeader, async (request, response) => {
     }
 })
 
+//@desc deletes pokemon from database by ID
+//@route /pokemon/:pokemonID
+//@access protected
 router.delete('/:pokemonID', jwtInHeader, async (request, response) => {
     try {
         response.json(
