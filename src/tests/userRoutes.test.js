@@ -14,6 +14,10 @@ beforeAll(async () => {
     await deleteUserByEmail(email)
 })
 
+beforeEach(async () => {
+    jest.setTimeout(10000)
+})
+
 afterAll(async () => {
     await databaseDisconnect()
 })

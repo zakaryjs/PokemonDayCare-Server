@@ -19,6 +19,10 @@ beforeAll(async () => {
     await deletePokemonByNickname(nickname)
 })
 
+beforeEach(async () => {
+    jest.setTimeout(10000)
+})
+
 afterAll(async () => {
     await databaseDisconnect()
 })

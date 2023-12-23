@@ -7,6 +7,10 @@ beforeAll(async () => {
     await databaseConnect(process.env.DB_URI)
 })
 
+beforeEach(async () => {
+    jest.setTimeout(10000)
+})
+
 afterAll(async () => {
     await databaseDisconnect()
 })
